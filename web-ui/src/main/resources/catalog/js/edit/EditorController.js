@@ -34,7 +34,7 @@
 
 
 
-
+  goog.require('gn_extractmetadata_controller');
   goog.require('gn_batchedit_controller');
   goog.require('gn_directory_controller');
   goog.require('gn_editorboard_controller');
@@ -50,7 +50,7 @@
   var module = angular.module('gn_editor_controller',
       ['gn_fields', 'gn_new_metadata_controller',
        'gn_import_controller', 'gn_batchedit_controller',
-       'gn_editorboard_controller', 'gn_share',
+       'gn_editorboard_controller', 'gn_share', 'gn_extractmetadata_controller',
        'gn_directory_controller', 'gn_utility_directive',
        'gn_scroll_spy', 'gn_thesaurus', 'ui.bootstrap.datetimepicker',
        'ngRoute', 'gn_mdactions_service']);
@@ -60,7 +60,7 @@
   module.config(['$routeProvider',
     function($routeProvider) {
 
-
+	alert('kek');
       $routeProvider.
           when('/metadata/:id', {
             templateUrl: tplFolder + 'editor.html',
@@ -93,8 +93,14 @@
             templateUrl: tplFolder + 'directory.html',
             controller: 'GnDirectoryController'}).
           when('/import', {
-            templateUrl: tplFolder + 'import.html',
+            templateUrl: tplFolder + 'kek.jj',
             controller: 'GnImportController'}).
+			
+//Nikita Cedrik
+		  when('/extractmetadata', {
+            templateUrl: tplFolder + 'extractmetadata.html',
+            controller: 'GnExtractMetadataController'}).
+//			
           when('/batchedit', {
             templateUrl: tplFolder + 'batchedit.html',
             controller: 'GnBatchEditController'}).
@@ -105,7 +111,6 @@
             redirectTo: '/board'
           });
     }]);
-
   /**
    * Metadata editor controller
    */

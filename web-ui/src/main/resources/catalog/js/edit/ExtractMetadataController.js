@@ -19,17 +19,20 @@
  *
  * Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
  * Rome - Italy. email: geonetwork@osgeo.org
+ *
+ *
+ * Nikita Cedrik
  */
 
 (function() {
-  goog.provide('gn_import_controller');
+  goog.provide('gn_extractmetadata_controller');
 
 
   goog.require('gn_category');
   goog.require('gn_formfields_directive');
   goog.require('gn_importxsl');
 
-  var module = angular.module('gn_import_controller', [
+  var module = angular.module('gn_extractmetadata_controller', [
     'gn_importxsl',
     'gn_category',
     'blueimp.fileupload',
@@ -42,7 +45,7 @@
    * TODO: Add other type of import
    * TODO: Init form from route parameters
    */
-  module.controller('GnImportController', [
+  module.controller('GnExtractMetadataController', [
     '$scope',
     'gnMetadataManager',
     function($scope, gnMetadataManager) {

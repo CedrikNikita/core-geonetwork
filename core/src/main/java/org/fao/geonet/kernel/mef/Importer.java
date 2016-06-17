@@ -102,7 +102,9 @@ public class Importer {
 
         IVisitor visitor;
 
-        if (fileType.equals("single"))
+        if (fileType.equals("pdf"))
+            visitor = new PdfVisitor();
+        else if (fileType.equals("single"))
             visitor = new XmlVisitor();
         else if (fileType.equals("mef"))
             visitor = new MEFVisitor();
@@ -488,7 +490,7 @@ public class Importer {
 
 		GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
 		DataManager dm = gc.getBean(DataManager.class);
-		
+
 
 		if (uuid == null || uuid.equals("")
 				|| uuidAction.equals(Params.GENERATE_UUID)) {
@@ -508,7 +510,7 @@ public class Importer {
 				throw new Exception(
 						"Missing siteId parameter from info.xml file");
 
-			// --- only update sources table if source is not current site 
+			// --- only update sources table if source is not current site
             if (!source.equals(gc.getBean(SettingManager.class).getSiteId())) {
                 Source source1 = new Source(source, sourceName, sourceTranslations, true);
                 context.getBean(SourceRepository.class).save(source1);
@@ -539,7 +541,7 @@ public class Importer {
 
         if(Log.isDebugEnabled(Geonet.MEF))
             Log.debug(Geonet.MEF, "Adding metadata with uuid:" + uuid);
-		
+
         //
         // insert metadata
         //
@@ -571,7 +573,7 @@ public class Importer {
 
 	/**
 	 * Add privileges according to information file.
-	 * 
+	 *
 	 * @param context
 	 * @param dm
 	 * @param metadataId
@@ -622,7 +624,7 @@ public class Importer {
 
 	/**
 	 * Add operations according to information file.
-	 * 
+	 *
 	 * @param context
 	 * @param dm
 	 * @param group
