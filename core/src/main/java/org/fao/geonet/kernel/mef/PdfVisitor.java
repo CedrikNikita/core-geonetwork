@@ -30,6 +30,9 @@ import org.fao.geonet.utils.Xml;
 import org.jdom.Element;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Import an PDF file and create a temporary information file before passing the
@@ -39,15 +42,59 @@ import java.nio.file.Path;
 public class PdfVisitor implements IVisitor {
 
     public void visit(Path pdfFile, IMEFVisitor v) throws Exception {
-        System.out.print("Hello, PDF!");
-        handleXml(pdfFile, v);
-    }
 
+		String command = "python ../python/ExtractMetadata.py " + pdfFile.toString();
+		
+		String output = executeCommand(command);
+
+		System.out.println(output);
+		
+		String temp = pdfFile.toString();
+		temp = temp.substring(0, temp.length()-3) + "xml";
+		
+		
+        handleXml(pdfFile.resolveSibling(temp), v);
+    }
+	
+	private String executeCommand(String command) {
+
+		StringBuffer output = new StringBuffer();
+
+		Process p;
+		try {
+			p = Runtime.getRuntime().exec(command);
+			p.waitFor();
+			BufferedReader reader = 
+                            new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                        String line = "";			
+			while ((line = reader.readLine())!= null) {
+				output.append(line + "\n");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return output.toString();
+
+	}
     /**
      * Load an PDF file and pass it to a MEF visitor.
      */
-    public Element handleXml(Path pdfFile, IMEFVisitor v) throws Exception {
-        return null;
+    public Element handleXml(Path xmlFile, IMEFVisitor v) throws Exception {
+       	Element md;
+		md = Xml.loadFile(xmlFile);
+		if (md == null)
+			throw new BadFormatEx("Missing xml metadata file .");
+
+		v.handleMetadata(md, 0);
+
+		// Generate dummy info file.
+		Element info;
+		info = new Element("info");
+		v.handleInfo(info, 0);
+		return info;
     }
 
     public void handleBin(Path mefFile, IMEFVisitor v, Element info, int index)

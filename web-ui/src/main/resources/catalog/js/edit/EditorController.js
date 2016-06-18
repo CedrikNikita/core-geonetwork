@@ -93,7 +93,7 @@
             templateUrl: tplFolder + 'directory.html',
             controller: 'GnDirectoryController'}).
           when('/import', {
-            templateUrl: tplFolder + 'kek.jj',
+            templateUrl: tplFolder + 'import.html',
             controller: 'GnImportController'}).
 			
 //Nikita Cedrik

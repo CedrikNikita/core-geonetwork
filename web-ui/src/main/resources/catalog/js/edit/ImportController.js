@@ -121,6 +121,7 @@
             $scope.file_type = 'single';
 
           }else if(n[0].name.match(/.pdf$/i) !== null) {
+			alert('sdsdsd');
             $scope.file_type = 'pdf';
           } else if (
               n[0].name.match(/.zip$/i) !== null ||
