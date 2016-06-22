@@ -22,3 +22,8 @@ You have to install Python 2.7+
 Required Python modules:
 - pdfminer
 - wget
+## Known isues(TINRO-Center)
+if server is down run following command, before ## Deploying:
+```
+$ iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+```
