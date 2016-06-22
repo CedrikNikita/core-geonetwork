@@ -24,7 +24,7 @@ Required Python modules:
 - wget
 
 ## Known isues(TINRO-Center)
-if server is down run following command, before ## Deploying:
+if server is down run following command, before [Deploying](##Deploying):
 ```
 $ iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
 ```
